@@ -1,7 +1,13 @@
-Репозиторий
+Репозиторий базового osmf
 
 svn co http://svn.code.sf.net/adobe/osmf/svn/osmf/trunk osmf-svn
 
+
+Клонирование
+
+git clone git@github.com:httplab/osmf.git
+git submodule init
+git submodule update
 
 Подготовка
 
