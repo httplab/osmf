@@ -48,7 +48,9 @@ build.sh player # собирает StrobeMediaPlayback
 
    ```-swf-version=11 -define CONFIG::LOGGING true -define CONFIG::FLASH_10_1 true -define CONFIG::PLATFORM
    true -define CONFIG::MOCK false```
+8. Для того, чтобы заработал дебаг нужно установить вот эту штуку
 
+    `http://fpdownload.macromedia.com/pub/flashplayer/updaters/11/flashplayer_11_plugin_debug.dmg`
 
 Если все сделано правильно, то проект можно будет собрать в Flash Builder и запустить. В случае успешного
 запуска в браузере откроется окошко, в котором плейер будет воспроизводить тестовое видео.
