@@ -1,0 +1,3 @@
+[submodule "player/MSPlayer"]
+	path = player/MSPlayer
+	url = git@github.com:httplab/MSPlayer.git
