@@ -38,9 +38,10 @@ build.sh player # собирает StrobeMediaPlayback
 2. Путь к директории проекта `osmf/player/MSPlayer`
 3. Название проекта MSPlayer
 4. В визарде, который создает проект на этапе Build Paths во вкладке Library path
-   в окне Build path libraries добавить:
+   в окне Build path libraries добавит (чтобы эти либы появились, нужно собрать проект через консоль):
    - `osmf/framework/OSMF/bin/OSMF.swc`
    - `osmf/player/MSPlayer/assets/assets.swc`
+   - `osmf/samples/VASTNew/bin/VASTNew.swc`
 5. Создать проект.
 6. Добавить sdk 4.5.1A и указать его в качестве используемого в проекте
 6. In your project properties, under Adobe Flash Player options, select “Use a specific version” and choose 10.2.0.
