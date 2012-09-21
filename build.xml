@@ -75,6 +75,7 @@
 		<sequential>
 			<subant target="" inheritall="true">
 				<fileset dir="." includes="*/VPAIDLibrary/build.xml" />
+				<fileset dir="." includes="*/VASTNew/build.xml" />
 				<fileset dir="." includes="*/*Library/build.xml" excludes="*VPAID*"/>
 				<fileset dir="." includes="testing/*Library/build.xml"/>
 			</subant>
