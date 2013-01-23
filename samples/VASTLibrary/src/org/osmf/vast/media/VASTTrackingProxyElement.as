@@ -181,7 +181,7 @@ package org.osmf.vast.media
 			// Add a mouse event to the media container for clickThru support.
 			if (container != null)
 			{
-				var mediaContainer:MediaContainer = container as MediaContainer;
+				mediaContainer = container as MediaContainer;
 				if (mediaContainer != null)
 				{
 					mediaContainer.buttonMode = true;
@@ -340,5 +340,6 @@ package org.osmf.vast.media
 		private var midpointReached:Boolean = false;
 		private var thirdQuartileReached:Boolean = false;
 		private var browserEngine:String = 'unknown';
+		protected var mediaContainer:MediaContainer;
 	}
 }
