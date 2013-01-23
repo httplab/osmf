@@ -381,7 +381,7 @@ package org.osmf.vast.parser {
 		public function get adTagVASTDuration() : VAST2Time 
 		{
 			//return _InLine.Creatives.Linear.videoDuration;
-			return _LinearAdsArray[0].videoDuration;
+			return _LinearAdsArray.length ? _LinearAdsArray[0].videoDuration : null;
 		}
 
 		/**
@@ -424,7 +424,7 @@ package org.osmf.vast.parser {
 		 */
 		public function get mediafileArray() : Array
 		{
-			return _LinearAdsArray[0].MediaFiles;
+			return _LinearAdsArray.length ? _LinearAdsArray[0].MediaFiles : null;
 		}
 
 		/**
