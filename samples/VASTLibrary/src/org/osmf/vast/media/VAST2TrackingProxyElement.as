@@ -372,8 +372,8 @@ package org.osmf.vast.media
 		
 		private function onTimeComplete(e:TimeEvent):void
 		{
-			mediaContainer.buttonMode = false;
-			mediaContainer.removeEventListener(MouseEvent.MOUSE_UP,onMediaElementClick);		
+			mediaContainer && (mediaContainer.buttonMode = false);
+			mediaContainer && mediaContainer.removeEventListener(MouseEvent.MOUSE_UP,onMediaElementClick);		
 		}		
 		
 		private function onLoadStateChange(e:LoadEvent):void
@@ -610,6 +610,5 @@ package org.osmf.vast.media
 		private var cacheBuster:CacheBuster;
 		private var mute:Boolean = false;
 		private var playerVolume:Number = 0;
-		private var mediaContainer:MediaContainer;
 	}
 }

@@ -171,7 +171,7 @@ package org.osmf.vast.model
 			
 			if(_vastObj.totalSeconds != null || _vastObj.totalSeconds != "")
 			{
-				_adTagVASTDuration = Number(_vastObj.adTagVASTDuration.totalSeconds);
+				_vastObj.adTagVASTDuration && (_adTagVASTDuration = Number(_vastObj.adTagVASTDuration.totalSeconds));
 			}
 
 			if(_vastObj.adTagClickThrough != null || _vastObj.adTagClickThrough != "undefined")

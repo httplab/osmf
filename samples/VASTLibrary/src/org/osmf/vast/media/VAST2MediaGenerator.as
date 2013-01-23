@@ -447,9 +447,9 @@ package org.osmf.vast.media
 			// Check for Video.
 			if (vastDocument.mediafileArray != null && vastDocument.mediafileArray.length > 0 && isLinear)
 			{
-				
-				for each(var mediaObj:Object in vastDocument.mediafileArray)
-				{
+				var mediaFileURL:Vector.<VAST2MediaFile> = new Vector.<VAST2MediaFile>;
+
+				for each(var mediaObj:Object in vastDocument.mediafileArray) {
 					var mediaFileObj:VAST2MediaFile = new VAST2MediaFile();
 					mediaFileObj.url = mediaObj.url;
 					mediaFileObj.delivery = mediaObj.delivery;
@@ -461,11 +461,8 @@ package org.osmf.vast.media
 					mediaFileObj.scalable = mediaObj.scalable;
 					mediaFileObj.maintainAspectRatio = mediaObj.maintainAspectRatio;
 					mediaFileObj.apiFramework = mediaObj.apiFramework;
-
-					var mediaFileURL:Vector.<VAST2MediaFile> = new Vector.<VAST2MediaFile>;
 					mediaFileURL.push(mediaFileObj);
 				}
-
 				// Resolve the correct one.
 				var mediaFile:VAST2MediaFile = mediaFileResolver.resolveMediaFiles(mediaFileURL);
 				if (mediaFile != null)
