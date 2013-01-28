@@ -129,6 +129,7 @@ package org.osmf.elements.loaderClasses
 				&&	urlReq.url.search(/^file:\//i) == -1
 			   )
 			{
+				//TODO: Comment it, if you want to test GA locally.
 				context.securityDomain = SecurityDomain.currentDomain;
 			}
 			

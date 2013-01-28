@@ -504,7 +504,7 @@ package org.osmf.vast.media
 					var impressions:VASTImpressionProxyElement = new VAST2ImpressionProxyElement(impressionArray, null, rootElement, cacheBuster);
 					var events:VASTTrackingProxyElement = new VAST2TrackingProxyElement(trackingEvents,null, impressions, cacheBuster,clickThru);
 					var vastMediaElement:MediaElement = events;
-					
+					vastDocument.vastParser.canBeSkipped && vastMediaElement.metadata.addValue('canBeSkipped', vastDocument.vastParser.canBeSkipped)
 					mediaElements.push(vastMediaElement);
 
 
@@ -528,7 +528,7 @@ package org.osmf.vast.media
 						var impressionsNonLinear:VASTImpressionProxyElement = new VAST2ImpressionProxyElement(impressionArray, null, vpaidElement, cacheBuster);							
 						var eventsNonLinear:VASTTrackingProxyElement = new VAST2TrackingProxyElement(trackingEvents,null, impressionsNonLinear, cacheBuster, clickThru);
 						var vastMediaElementNonLinear:MediaElement = eventsNonLinear;
-					
+						vastDocument.vastParser.canBeSkipped && vastMediaElement.metadata.addValue('canBeSkipped', vastDocument.vastParser.canBeSkipped)
 						mediaElements.push(vastMediaElementNonLinear);
 						
 					}
@@ -546,6 +546,7 @@ package org.osmf.vast.media
 					}
 					var companionElement:CompanionElement = new CompanionElement(companionAd);
 					companionElement.scriptPath = companionAd.staticResource;
+					vastDocument.vastParser.canBeSkipped && vastMediaElement.metadata.addValue('canBeSkipped', vastDocument.vastParser.canBeSkipped)
 					mediaElements.push(companionElement);
 				}
 			}

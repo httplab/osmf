@@ -907,7 +907,14 @@ package org.osmf.vast.parser {
 		{
 			return _trackingData._clickTrackingArray;
 		}
-			
+		
+		public function get canBeSkipped():Number {
+			if (_InLine && _InLine.Extensions && _InLine.Extensions[0] && _InLine.Extensions[0].Extension) {
+				return _InLine.Extensions[0].Extension[0];
+			} else { 
+				return 0;
+			}
+		}
 		
 	}
 
