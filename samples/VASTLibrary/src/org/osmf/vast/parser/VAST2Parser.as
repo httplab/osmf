@@ -910,13 +910,21 @@ package org.osmf.vast.parser {
 		
 		public function get canBeSkipped():Number {
 			if (_InLine && _InLine.Extensions && _InLine.Extensions[0] && _InLine.Extensions[0].Extension) {
-				return _InLine.Extensions[0].Extension[0];
+				var timeArray:Array = _InLine.Extensions[0].Extension[0].split(':');
+				var time:Number = 0;
+				for (var i:int = 0; i < timeArray.length; i++) {
+					for (var j:int = 0; j < i; j++) {
+						timeArray[j] = Number(timeArray[j]) * 60;
+					}
+				}
+				for each(var seconds:Number in timeArray) {
+					time += seconds;
+				}
+				return time;
 			} else { 
 				return 0;
 			}
 		}
-		
 	}
-
 /* End package */
 }
