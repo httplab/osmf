@@ -24,19 +24,13 @@
 package org.osmf.vast.media
 {
 	import __AS3__.vec.Vector;
-	
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
-	import flash.external.ExternalInterface;
-	import flash.net.URLRequest;
-	import flash.net.navigateToURL;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
-	
-	import org.osmf.containers.MediaContainer;
+	import org.osmf.elements.beaconClasses.Beacon;
 	import org.osmf.elements.ProxyElement;
 	import org.osmf.elements.VideoElement;
-	import org.osmf.elements.beaconClasses.Beacon;
 	import org.osmf.events.AudioEvent;
 	import org.osmf.events.LoadEvent;
 	import org.osmf.events.MediaErrorEvent;
@@ -46,7 +40,6 @@ package org.osmf.vast.media
 	import org.osmf.media.MediaElement;
 	import org.osmf.traits.AudioTrait;
 	import org.osmf.traits.LoadState;
-	import org.osmf.traits.LoadTrait;
 	import org.osmf.traits.MediaTraitType;
 	import org.osmf.traits.PlayState;
 	import org.osmf.traits.PlayTrait;
@@ -370,9 +363,8 @@ package org.osmf.vast.media
 			}
 		}
 		
-		private function onTimeComplete(e:TimeEvent):void
-		{
-			mediaContainer && (mediaContainer.buttonMode = false);
+		private function onTimeComplete(e:TimeEvent):void {
+			mediaContainer && (mediaContainer.buttonMode = mediaContainer.useHandCursor = false);
 			mediaContainer && mediaContainer.removeEventListener(MouseEvent.MOUSE_UP,onMediaElementClick);		
 		}		
 		

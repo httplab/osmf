@@ -22,6 +22,7 @@
 package org.osmf.vast.media
 {
 	import __AS3__.vec.Vector;
+	import flash.net.navigateToURL;
 	
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
@@ -175,89 +176,47 @@ package org.osmf.vast.media
 			
 			fireEventOfType(VASTTrackingEventType.COMPLETE);
 		}
-
-		protected function createClickThru():void
-		{
+		
+		protected function createClickThru():void {
 			// Add a mouse event to the media container for clickThru support.
-			if (container != null)
-			{
+			if (container != null) {
 				mediaContainer = container as MediaContainer;
-				if (mediaContainer != null)
-				{
+				if (mediaContainer != null) {
 					mediaContainer.buttonMode = true;
+					mediaContainer.useHandCursor = true;
+					mediaContainer.removeEventListener(MouseEvent.MOUSE_UP, onMediaElementClick);
 					mediaContainer.addEventListener(MouseEvent.MOUSE_UP, onMediaElementClick, false, 0, true);
 				}
 			}
 		}
 		
-		protected function onMediaElementClick(event:MouseEvent):void
-		{
+		protected function onMediaElementClick(event:MouseEvent):void {
 			getURL(clickThruURL, "_blank");
 			fireEventOfType(VASTTrackingEventType.CLICK_THRU);
 		}
 		
-		protected function getURL(url:String, window:String = "_self"):void
-		{
-			var compatBrowser:Boolean = false;
-			browserEngine = getBrowserEngine();
-			switch (browserEngine)
-			{
-				case "webkit":
-				case "opera":
-				case "internabl":
-				case "unknown":
-				case "aim":
-					compatBrowser = false;
-					break;
-				default:
-					compatBrowser = true;
+		protected function getURL(url:String, window:String = "_self"):void {
+			if (ExternalInterface.available) {
+				eval(
+					"var wo = function(url) { " +
+						"window.open(url, '" + window + "')" + 
+					"}; " +
+					"wo('" + url + "');" 
+				);
+			} else {
+				navigateToURL(new URLRequest(url), window);
 			}
-			
-			var request:URLRequest = new URLRequest(url);
-			flash.net.navigateToURL(request, window);
 		}
 		
-		private function getBrowserEngine() : String
-		{
-			// Get User Agent
-			try
-			{
-				var userAgent:String = ExternalInterface.call("eval", "navigator.userAgent");
-				userAgent = userAgent.toLowerCase();
-				var isIe:Boolean = (userAgent.indexOf("msie") >= 0);
-				var isOpera:Boolean = (userAgent.indexOf('opera') >= 0);
-				if (isOpera)
-				{
-					isIe = false;
-				}
-				var isSafari:Boolean = (userAgent.indexOf('applewebkit') >= 0 || userAgent.indexOf('konqueror') >= 0);
-				var isGecko:Boolean = (userAgent.indexOf('gecko/') > 0);
-				
-				if (isIe)
-				{
-					browserEngine = 'msie';
-				}
-				if (isOpera)
-				{
-					browserEngine = 'opera';
-				}
-				if (isSafari)
-				{
-					browserEngine = 'webkit';
-				}
-				if (isGecko)
-				{
-					browserEngine = 'gecko';
+		private function eval(expression:String):* {
+			if (ExternalInterface.available) {
+				try {
+					return ExternalInterface.call("eval", expression);
+				} catch(e:Error) {
+					trace("Eval can not be executed.");
 				}
 			}
-			catch (e:Error)
-			{
-				browserEngine = 'unknown';
-			}
-			
-			return browserEngine;
 		}
-		
 		// Internals
 		//
 		
@@ -339,7 +298,6 @@ package org.osmf.vast.media
 		private var firstQuartileReached:Boolean = false;
 		private var midpointReached:Boolean = false;
 		private var thirdQuartileReached:Boolean = false;
-		private var browserEngine:String = 'unknown';
 		protected var mediaContainer:MediaContainer;
 	}
 }
