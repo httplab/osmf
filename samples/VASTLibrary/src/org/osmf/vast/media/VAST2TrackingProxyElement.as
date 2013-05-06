@@ -364,8 +364,9 @@ package org.osmf.vast.media
 		}
 		
 		private function onTimeComplete(e:TimeEvent):void {
-			mediaContainer && (mediaContainer.buttonMode = mediaContainer.useHandCursor = false);
-			mediaContainer && mediaContainer.removeEventListener(MouseEvent.MOUSE_UP,onMediaElementClick);		
+			interactiveObject && (interactiveObject.buttonMode = interactiveObject.useHandCursor = false);
+			interactiveObject && interactiveObject.removeEventListener(MouseEvent.MOUSE_UP, onMediaElementClick);		
+			mediaContainer && (mediaContainer.mouseEnabled = true);
 		}		
 		
 		private function onLoadStateChange(e:LoadEvent):void
@@ -572,11 +573,11 @@ package org.osmf.vast.media
 			return 0;
 		}
 		
-		override protected function onMediaElementClick(e:MouseEvent):void
-		{
-			
-			if(cacheBuster != null && clickThruURL != null)
-			{
+		override protected function onMediaElementClick(e:MouseEvent):void {
+			if (!isCorrectTarget(e)) { 
+				return;
+			}
+			if(cacheBuster != null && clickThruURL != null) {
 				getURL(cacheBustURL(clickThruURL), "_blank");
 				fireEventOfType(VASTTrackingEventType.CLICK_THRU);
 			}

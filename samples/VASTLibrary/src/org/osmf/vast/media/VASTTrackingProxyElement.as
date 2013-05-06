@@ -22,6 +22,8 @@
 package org.osmf.vast.media
 {
 	import __AS3__.vec.Vector;
+	import flash.display.DisplayObject;
+	import flash.display.Sprite;
 	import flash.net.navigateToURL;
 	
 	import flash.events.MouseEvent;
@@ -181,18 +183,43 @@ package org.osmf.vast.media
 			// Add a mouse event to the media container for clickThru support.
 			if (container != null) {
 				mediaContainer = container as MediaContainer;
-				if (mediaContainer != null) {
-					mediaContainer.buttonMode = true;
-					mediaContainer.useHandCursor = true;
-					mediaContainer.removeEventListener(MouseEvent.MOUSE_UP, onMediaElementClick);
-					mediaContainer.addEventListener(MouseEvent.MOUSE_UP, onMediaElementClick, false, 0, true);
+				if (interactiveObject != null) {
+					mediaContainer.mouseEnabled = false;
+					interactiveObject.buttonMode = true;
+					interactiveObject.useHandCursor = true;
+					interactiveObject.removeEventListener(MouseEvent.MOUSE_UP, onMediaElementClick);
+					interactiveObject.addEventListener(MouseEvent.MOUSE_UP, onMediaElementClick, false, 0, true);
 				}
 			}
 		}
 		
+		protected function get interactiveObject():Sprite {
+			if (mediaContainer && mediaContainer.parent && mediaContainer.parent is Sprite) {
+				return mediaContainer.parent as Sprite;
+			}
+			return null;
+		}
+		
 		protected function onMediaElementClick(event:MouseEvent):void {
+			if (!isCorrectTarget(event)) { 
+				return;
+			}
 			getURL(clickThruURL, "_blank");
 			fireEventOfType(VASTTrackingEventType.CLICK_THRU);
+		}
+		
+		protected function isCorrectTarget(e:MouseEvent):Boolean {
+			if (e.target == e.currentTarget) { 
+				return true;
+			}
+			var dO:DisplayObject = e.target as DisplayObject;
+			while (dO.parent) {
+				if (dO == mediaContainer) {
+					return true;
+				}
+				dO = dO.parent;
+			}
+			return false;
 		}
 		
 		protected function getURL(url:String, window:String = "_self"):void {
